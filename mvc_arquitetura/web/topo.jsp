@@ -27,17 +27,9 @@
                         <div class="collapse navbar-collapse">
                             <!-- Cria a barra de navegação para os links -->
                             <div class="navbar-nav">
-                                <a class="nav-item nav-link" href="#">Novo</a>
+                                <a class="nav-item nav-link" href="AlunosController">Novo</a>
                                 <a class="nav-item nav-link" href="#">Pesquisa</a>
                                 <a class="nav-item nav-link" href="#">Listar Todos</a>
                             </div>
                         </div>
                     </nav>
-                    <div class="alert-success text-center espaco">
-                        Página Inicial da Aplicação
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
