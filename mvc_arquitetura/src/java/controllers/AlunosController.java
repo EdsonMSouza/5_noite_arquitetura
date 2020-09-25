@@ -6,7 +6,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +43,13 @@ public class AlunosController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setAttribute("mensagem", "Isto é uma mensagem que veio do Controller");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        // a linha baixo recupera os dados enviados via POST
+        String ra = request.getParameter("ra");
+        request.setAttribute("mensagem", "O RA digitado foi: " + ra);
+
         request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
     }
 
@@ -59,7 +64,20 @@ public class AlunosController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        // a linha baixo recupera os dados enviados via POST
+        String ra = request.getParameter("ra");
+        String nome = request.getParameter("nome");
+        String curso = request.getParameter("curso");
+
+        request.setAttribute("msg_ra", ra);
+        request.setAttribute("msg_nome", nome);
+        request.setAttribute("msg_curso", curso);
+
+        request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
     }
 
     /**
