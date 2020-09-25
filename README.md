@@ -29,6 +29,7 @@
 + [Curso de Apache Hadoop + Big Data](https://youtu.be/1vbXmCrkT3Y) (Inglês)
 
 ## Canais no Youtube interessantes
++ [Canal do Professor Edson Melo](https://www.youtube.com/EdsonMSouza) - Canal do professor com vários vídeos sobre Java, PHP, MySQL, etc.
 + [Código Fonte TV](https://www.youtube.com/user/codigofontetv) - Vídeos sobre tecnologia de forma geral
 + [Linguagem Python](https://www.youtube.com/watch?v=S9uPNppGsGo) - Curso de Python
 + [Linguagem R](https://www.youtube.com/watch?v=tfPsmDzS74c&list=PLyqOvdQmGdTQ5dE6hSD7ZGBu8bud70wYf) - Curso de R
