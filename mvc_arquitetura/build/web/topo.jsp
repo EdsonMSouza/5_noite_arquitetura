@@ -28,7 +28,7 @@
                             <!-- Cria a barra de navegação para os links -->
                             <div class="navbar-nav">
                                 <a class="nav-item nav-link" href="view_novo.jsp">Novo</a>
-                                <a class="nav-item nav-link" href="#">Pesquisa</a>
+                                <a class="nav-item nav-link" href="view_pesquisar.jsp">Pesquisa</a>
                                 <a class="nav-item nav-link" href="AlunosController">Listar Todos</a>
                             </div>
                         </div>

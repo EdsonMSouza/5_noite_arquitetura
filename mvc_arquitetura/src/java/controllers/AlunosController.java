@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
 import java.io.IOException;
@@ -68,26 +63,35 @@ public class AlunosController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        // a linha baixo recupera os dados enviados via POST
-        String ra = request.getParameter("ra");
-        String nome = request.getParameter("nome");
-        String curso = request.getParameter("curso");
+        // pega o valor enviado na variável "operacao"
+        String operacao = request.getParameter("operacao");
 
-        request.setAttribute("msg_ra", ra);
-        request.setAttribute("msg_nome", nome);
-        request.setAttribute("msg_curso", curso);
-
-        request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+        // criar um menu de opções com a estrutura de seleção switch
+        switch (operacao) {
+            case "Inserir":
+                request.setAttribute("mensagem", "Inserir");
+                request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+                break;
+            case "Pesquisar":
+                request.setAttribute("mensagem", "Pesquisar");
+                request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+                break;
+            case "Editar":
+                request.setAttribute("mensagem", "Editar");
+                request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+                break;
+            case "Atualizar":
+                request.setAttribute("mensagem", "Atualizar");
+                request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+                break;
+            case "Excluir":
+                request.setAttribute("mensagem", "Excluir");
+                request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+                break;
+            case "ConfirmarExclusao":
+                request.setAttribute("mensagem", "Confirmar Exclusão");
+                request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+                break;
+        }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
