@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.AlunoModel;
 
 /**
  *
@@ -69,6 +70,7 @@ public class AlunosController extends HttpServlet {
         // criar um menu de opções com a estrutura de seleção switch
         switch (operacao) {
             case "Inserir":
+
                 request.setAttribute("mensagem", "Inserir");
                 request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
                 break;
