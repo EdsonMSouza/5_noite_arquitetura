@@ -1,6 +1,11 @@
 package controllers;
 
+import beans.Aluno;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +17,9 @@ import models.AlunoModel;
  * @author souza
  */
 public class AlunosController extends HttpServlet {
+
+    // criar uma lista para receber alunos vindos do model
+    List<Aluno> alunosDados;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,11 +50,20 @@ public class AlunosController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        // a linha baixo recupera os dados enviados via POST
-        String ra = request.getParameter("ra");
-        request.setAttribute("mensagem", "O RA digitado foi: " + ra);
+        try {
+            // vamos instanciar o objeto Model do aluno para solicitarmos os dados
+            AlunoModel am = new AlunoModel();
 
-        request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+            // vamos executar o método listar do objeto AlunoModel (am)
+            alunosDados = am.listar();
+
+            // vamos enviar toda essa parada louca para a View
+            request.setAttribute("listaAlunos", alunosDados);
+            request.getRequestDispatcher("view_listar.jsp").forward(request, response);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
