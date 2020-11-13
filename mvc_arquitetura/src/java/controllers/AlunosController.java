@@ -21,6 +21,9 @@ public class AlunosController extends HttpServlet {
     // criar uma lista para receber alunos vindos do model
     List<Aluno> alunosDados;
 
+    // Cria um objeto Aluno para a classe toda
+    Aluno aluno = new Aluno();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -62,7 +65,8 @@ public class AlunosController extends HttpServlet {
             request.getRequestDispatcher("view_listar.jsp").forward(request, response);
 
         } catch (SQLException ex) {
-            Logger.getLogger(AlunosController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("mensagem", ex.getMessage());
+            request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
         }
     }
 
@@ -87,9 +91,27 @@ public class AlunosController extends HttpServlet {
         // criar um menu de opções com a estrutura de seleção switch
         switch (operacao) {
             case "Inserir":
+                try {
+                    // recuperar os dados do formulário
+                    aluno.setRa(request.getParameter("ra"));
+                    aluno.setNome(request.getParameter("nome"));
+                    aluno.setCurso(request.getParameter("curso"));
 
-                request.setAttribute("mensagem", "Inserir");
-                request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+                    // Instanciar o Model (Aluno)
+                    AlunoModel am = new AlunoModel();
+
+                    // Passando os valores para o objeto "am"
+                    am.inserir(aluno);
+
+                    // redireciona para a view de mensagem
+                    request.setAttribute("mensagem", am.toString());
+                    request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+
+                } catch (SQLException sql) {
+                    request.setAttribute("mensagem", sql.getMessage());
+                    request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+                }
+
                 break;
             case "Pesquisar":
                 request.setAttribute("mensagem", "Pesquisar");
