@@ -94,8 +94,55 @@ public class AlunoModel implements Serializable {
         }
     }
 
-    public List<Aluno> pesquisar(Aluno aluno) {
-        return null;
+    // tipo: ra, nome ou curso
+    public List<Aluno> pesquisar(Aluno aluno, String tipo) {
+        List<Aluno> alunos = new ArrayList(); // lista de objetos aluno
+        PreparedStatement ps = null; // aqui declaramos a preparação
+        String sql = new String();
+
+        try {
+            // como selecionar as opções?
+            switch (tipo) {
+                case "ra":
+                    sql = "SELECT * FROM alunos WHERE ra=?";
+                    ps = conexao.prepareStatement(sql);
+                    ps.setString(1, aluno.getRa());
+                    break;
+
+                case "nome":
+                    sql = "SELECT * FROM alunos WHERE nome=? ORDER BY nome ASC";
+                    ps = conexao.prepareStatement(sql);
+                    ps.setString(1, aluno.getNome());
+                    break;
+
+                case "curso":
+                    sql = "SELECT * FROM alunos WHERE curso=? ORDER BY nome ASC";
+                    ps = conexao.prepareStatement(sql);
+                    ps.setString(1, aluno.getCurso());
+                    break;
+            }
+
+            // resultado da consulta no banco
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) { //enquanto houver próximo
+                aluno = new Aluno();
+                aluno.setId(rs.getInt("id"));
+                aluno.setRa(rs.getString("ra"));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setCurso(rs.getString("curso"));
+
+                // colocar o objeto que foi "populado ou alimentado"
+                // na nossa lista de alunos (List<Aluno>)
+                alunos.add(aluno);
+            }
+            rs.close();
+            ps.close();
+            return alunos;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Falha ao Pesquisar");
+        }
     }
 
     // método para atualizar um registro (Update - update)

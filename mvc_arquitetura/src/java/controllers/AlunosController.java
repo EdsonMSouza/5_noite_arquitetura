@@ -111,17 +111,59 @@ public class AlunosController extends HttpServlet {
                     request.setAttribute("mensagem", sql.getMessage());
                     request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
                 }
+                break;
 
-                break;
             case "Pesquisar":
-                request.setAttribute("mensagem", "Pesquisar");
-                request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+                String valorDigitado = request.getParameter("valor");
+
+                try {
+                    AlunoModel am = new AlunoModel();
+
+                    // vamos verificar que TIPO foi solicitado
+                    switch (request.getParameter("tipo")) {
+                        case "ra":
+                            aluno.setRa(valorDigitado);
+                            break;
+
+                        case "nome":
+                            aluno.setNome(valorDigitado);
+                            break;
+
+                        case "curso":
+                            aluno.setCurso(valorDigitado);
+                            break;
+                    }
+
+                    // e agora o que vai aqui?
+                    // Aqui vai a chamada para a pesquisa
+                    alunosDados = am.pesquisar(aluno, request.getParameter("tipo"));
+
+                    // vamos retornar os dados para a tela de listar
+                    request.setAttribute("listaAlunos", alunosDados);
+                    request.getRequestDispatcher("view_listar.jsp").forward(request, response);
+
+                } catch (SQLException sql) {
+                    request.setAttribute("mensagem", sql.getMessage());
+                    request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+                }
                 break;
+
             case "Editar":
-                request.setAttribute("mensagem", "Editar");
-                request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+                try {
+                    AlunoModel am = new AlunoModel();
+                    aluno.setRa(request.getParameter("ra"));
+                    alunosDados = am.pesquisar(aluno, "ra");
+
+                    request.setAttribute("alunoDados", alunosDados);
+                    request.getRequestDispatcher("view_editar.jsp").forward(request, response);
+
+                } catch (SQLException sql) {
+                    request.setAttribute("mensagem", sql.getMessage());
+                    request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
+                }
                 break;
-            case "Atualizar":
+
+            case "Atualizar": // salvar
                 request.setAttribute("mensagem", "Atualizar");
                 request.getRequestDispatcher("view_mensagem.jsp").forward(request, response);
                 break;
